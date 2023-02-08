@@ -23,7 +23,7 @@ app.get("/api/hello", function (req, res) {
     res.json({ greeting: "hello API" });
 });
 
-app.get("/api/:date", function (req, res) {
+app.get("/api/v1/:date", function (req, res) {
     const { date } = req.params;
     let input = Number(date);
     if (isNaN(input)) input = date;
@@ -39,6 +39,16 @@ app.get("/api/:date", function (req, res) {
 app.get("/api", function (req, res) {
     res.json({ unix: Date.now(), utc: new Date().toUTCString() });
 });
+
+app.get("/api/whoami", function (req, res) {
+  console.log(req.ip);
+  console.log(req.headers["accept-language"]);
+  res.json({ ipaddress: req.ip,
+      language: req.headers["accept-language"],
+       });
+});
+
+
 
 // listen for requests :)
 var listener = app.listen(43697, function () {
