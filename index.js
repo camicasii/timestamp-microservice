@@ -120,7 +120,8 @@ app.get('/api/users/:_id/logs', (req, res) => {
 
 
 
-const listener = app.listen(process.env.PORT || 3000, () => {
-  mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+const listener = app.listen(process.env.PORT || 3000, async() => {
+  mongoose.set("strictQuery", false);
+  await mongoose.connect(`${process.env.MONGO_CONNECTION}`);
   console.log('Your app is listening on port ' + listener.address().port)
 })
