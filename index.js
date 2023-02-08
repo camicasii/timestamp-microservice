@@ -40,14 +40,14 @@ app.post('/api/users/:_id/exercises', (req, res) => {
     };
     exercises.push(exercise);
     return res.json(
-    exercises.map((exercise) => {
-      if (exercise._id === _id) {
+    exercises.map((exercise_) => {
+      if (exercise_._id === _id) {
         return res.json({
           username: user.username,
-          description: exercise.description,
-          duration: exercise.duration,
-          date: exercise.date,
-          _id: exercise._id
+          description: exercise_.description,
+          duration: exercise_.duration,
+          date: exercise_.date,
+          _id: exercise_._id
         })
       }}));
       
