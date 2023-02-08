@@ -62,7 +62,7 @@ app.get('/api/users/:_id/exercises', (req, res) => {
 });
 app.get('/api/users', (req, res) => {
   res.json(
-{...users}
+users
     // users.map(user => {
     //   return { username: user.username, _id: user._id }
     // })
