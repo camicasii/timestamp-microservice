@@ -40,8 +40,8 @@ app.post('/api/users/:_id/exercises', (req, res) => {
     };
     exercises.push(exercise);
     const check = exercises.filter(user => user._id == _id)
-    console.log(users[id], exercise);    
-    res.json(Object.assign(users[id], exercise));
+    console.log(users[_id], exercise);    
+    res.json(Object.assign(users[_id], exercise));
   }
 });
 app.get('/api/users', (req, res) => {
