@@ -39,17 +39,14 @@ app.post('/api/users/:_id/exercises', (req, res) => {
       date: date ? new Date(date).toDateString() : new Date().toDateString()
     };
     exercises.push(exercise);
+    const check = exercises.filter(user_ => user_._id == _id).map(exercise_ => {
+      if(!!exercise_)
+      return Object.assign({username:users[_id].username}, exercise_)
+    })
+    check.concat(Object.assign({username:users[_id].username}, exercise));
     return res.json(
-    exercises.map((exercise_) => {
-      if (exercise_._id === _id) {
-        return res.json({
-          username: user.username,
-          description: exercise_.description,
-          duration: exercise_.duration,
-          date: exercise_.date,
-          _id: exercise_._id
-        })
-      }}));
+      check
+    );
       
     res.json(
     {
