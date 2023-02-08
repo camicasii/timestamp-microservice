@@ -3,7 +3,6 @@ const app = express()
 const cors = require('cors')
 const { randomUUID } = require('crypto');
 require('dotenv').config()
-uuid.
 app.use(cors())
 app.use(express.static('public'))
 app.use(express.json())
