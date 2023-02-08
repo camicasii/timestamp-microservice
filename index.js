@@ -40,6 +40,7 @@ app.post('/api/users/:_id/exercises', (req, res) => {
     };
     exercises.push(exercise);
     const check = exercises.filter(user => user._id == _id).map(exercise_ => {
+      if(!!exercise_)
       return Object.assign({username:users[_id].username}, exercise_)
     })
     console.log(check);
