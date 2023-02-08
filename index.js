@@ -56,8 +56,19 @@ app.get('/api/users/:_id/logs', (req, res) => {
     res.json({ error: "User not found" });
   }
   else {
+    let result = exercises.filter(user => user._id == _id);
+    if (from) {
+      result = result.filter(user => new Date(user.date) > new Date(from));
+    }
+    if (to) {
+      result = result.filter(user => new Date(user.date) < new Date(to));
+    }
+    if (limit) {
+      result = result.slice(0, limit);
+    }
+    res.json({ username: user.username, _id: user._id, count: exercises.length, log: result });
   }
-  res.json({ username: user.username, _id: user._id, count: exercises.length, log: exercises.filter(user => user._id == _id) });
+  // res.json({ username: user.username, _id: user._id, count: exercises.length, log: exercises.filter(user => user._id == _id) });
 })
 
 
