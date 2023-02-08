@@ -45,7 +45,12 @@ app.post('/api/users/:_id/exercises', (req, res) => {
   }
 });
 app.get('/api/users', (req, res) => {
-  res.json(users);
+  res.json(
+
+    users.map(user => {
+      return { username: user, _id: user._id }
+    })
+  );
 });
 
 app.get('/api/users/:_id/logs', (req, res) => {
