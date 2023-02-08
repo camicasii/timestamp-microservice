@@ -7,8 +7,7 @@ app.use(cors())
 app.use(express.static('public'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.get('/', (req, res) => {
-  return res.send("ok")
+app.get('/', (req, res) => {  
   res.sendFile(__dirname + '/views/index.html')
 });
 const users = [];
@@ -40,8 +39,9 @@ app.post('/api/users/:_id/exercises', (req, res) => {
       date: date ? new Date(date).toDateString() : new Date().toDateString()
     };
     exercises.push(exercise);
-    // const check = exercises.filter(user => user._id == _id)
-    // res.json(Object.assign(users[Number(_id)], { exercises: check }));
+    const check = exercises.filter(user => user._id == _id)
+    console.log(check);
+    res.json({...check});
   }
 });
 app.get('/api/users', (req, res) => {
