@@ -66,7 +66,10 @@ app.get('/api/users/:_id/exercises', (req, res) => {
   }
   else {
     
-    const check = exercises.filter(user => user._id == _id)    
+    const check = exercises.filter(user_ => user_._id == _id).map(exercise_ => {
+      if(!!exercise_)
+      return Object.assign({username:users[_id].username}, exercise_)
+    })
     res.json(...check);
   }
 });
