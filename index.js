@@ -43,9 +43,9 @@ app.post('/api/users/:_id/exercises', (req, res) => {
     {
       username: user.username,
       description: exercise.description,
-      duration: exercise.duration,
-      _id: exercise._id,
-      date: exercise.date
+      duration: exercise.duration,      
+      date: exercise.date,
+      _id: exercise._id
 
     }
     );
