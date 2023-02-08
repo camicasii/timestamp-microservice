@@ -57,7 +57,7 @@ app.get('/api/users/:_id/logs', (req, res) => {
   }
   else {
   }
-  res.json({ username: user.username, _id: user._id, count: exercises.length, log: exercises });
+  res.json({ username: user.username, _id: user._id, count: exercises.length, log: exercises.filter(user => user._id == _id) });
 })
 
 
