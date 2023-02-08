@@ -41,7 +41,19 @@ app.post('/api/users/:_id/exercises', (req, res) => {
     exercises.push(exercise);
     const check = exercises.filter(user => user._id == _id)
     console.log(Object.assign(users[_id], exercise));    
-    res.json(Object.assign(users[_id], exercise));
+    res.json(Object.assign(users[_id], ...check));
+  }
+});
+app.get('/api/users/:_id/exercises', (req, res) => {
+  const { _id } = req.params;
+  const user = users[Number(_id)];
+  if (!user) {
+    res.json({ error: "User not found" });
+  }
+  else {
+    
+    const check = exercises.filter(user => user._id == _id)    
+    res.json(Object.assign(users[_id], ...check));
   }
 });
 app.get('/api/users', (req, res) => {
