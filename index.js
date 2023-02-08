@@ -39,6 +39,18 @@ app.post('/api/users/:_id/exercises', (req, res) => {
       date: date ? new Date(date).toDateString() : new Date().toDateString()
     };
     exercises.push(exercise);
+    return res.json(
+    exercises.map((exercise) => {
+      if (exercise._id === _id) {
+        return res.json({
+          username: user.username,
+          description: exercise.description,
+          duration: exercise.duration,
+          date: exercise.date,
+          _id: exercise._id
+        })
+      }}));
+      
     res.json(
     {
       username: user.username,
