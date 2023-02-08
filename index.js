@@ -39,9 +39,12 @@ app.post('/api/users/:_id/exercises', (req, res) => {
       date: date ? new Date(date).toDateString() : new Date().toDateString()
     };
     exercises.push(exercise);
-    const check = exercises.filter(user => user._id == _id)
-    // console.log(Object.assign({username:users[_id].username}, exercise));    
-    res.json(Object.assign({username:users[_id].username}, exercise));
+    const check = exercises.filter(user => user._id == _id).map(exercise_ => {
+      return Object.assign({username:users[_id].username}, exercise_)
+    })
+    console.log(check);
+    // console.log(Object.assign({username:users[_id].username}, exercise)); 
+    res.json({...check});
   }
 });
 app.get('/api/users/:_id/exercises', (req, res) => {
