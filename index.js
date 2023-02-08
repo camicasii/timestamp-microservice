@@ -1,8 +1,9 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const { randomUUID } = require('crypto');
 require('dotenv').config()
-
+uuid.
 app.use(cors())
 app.use(express.static('public'))
 app.use(express.json())
@@ -20,8 +21,9 @@ app.post('/api/users', (req, res) => {
       return res.json({ error: "Username already taken" });
     }
   });
-  users.push({ username: username, _id: users.length });
-  res.json({ username: username, _id: users.length - 1 });
+  const id = randomUUID();
+  users.push({ username: username, _id: id});
+  res.json({ username: username, _id: id });
 
 });
 app.post('/api/users/:_id/exercises', (req, res) => {
