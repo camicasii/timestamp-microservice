@@ -70,7 +70,7 @@ app.get('/api/users/:_id/exercises', (req, res) => {
       if(!!exercise_)
       return Object.assign({username:users[_id].username}, exercise_)
     })
-    res.json(...check);
+    res.json(check);
   }
 });
 app.get('/api/users', (req, res) => {
