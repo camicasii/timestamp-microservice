@@ -48,7 +48,7 @@ app.get('/api/users', (req, res) => {
   res.json(
 
     users.map(user => {
-      return { username: user, _id: user._id }
+      return { username: user.username, _id: user._id }
     })
   );
 });
