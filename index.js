@@ -44,7 +44,7 @@ app.post('/api/users/:_id/exercises', (req, res) => {
       return Object.assign({username:users[_id].username}, exercise_)
     })
     console.log(check);
-    // console.log(Object.assign({username:users[_id].username}, exercise)); 
+    console.log(exercise); 
     res.json(check);
   }
 });
@@ -62,7 +62,7 @@ app.get('/api/users/:_id/exercises', (req, res) => {
 });
 app.get('/api/users', (req, res) => {
   res.json(
-users
+
     // users.map(user => {
     //   return { username: user.username, _id: user._id }
     // })
