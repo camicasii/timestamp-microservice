@@ -92,11 +92,11 @@ users
       );
 });
 
-app.get('/api/users/:_id/logs', (req, res) => {
+app.get('/api/users/:_id/logs',async  (req, res) => {
   const { _id } = req.params;
   const { from, to, limit } = req.query;
-  const user =User.findById(_id);
-  const exercises =Exercise.find({username:user.username});
+  const user =await User.findById(_id);
+  const exercises =await Exercise.find({username:user.username});
   if (!user) {
     res.json({ error: "User not found" });
   }
