@@ -99,9 +99,9 @@ app.get("/api/users/:_id/logs", async (req, res) => {
         });
 
         res.json({
-            username: user.username,
-            _id: user._id,
+            username: user.username,            
             count: exercises.length,
+            _id: user._id,
             log: result,
         });
     }
