@@ -101,6 +101,7 @@ app.get('/api/users/:_id/logs',async  (req, res) => {
     res.json({ error: "User not found" });
   }
   else {
+    console.log(exercises);
     let result = exercises;
     if (from) {
       result = result.filter(user_ => new Date(user_.date) > new Date(from));
