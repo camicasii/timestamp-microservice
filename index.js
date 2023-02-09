@@ -48,8 +48,8 @@ app.post("/api/users/:_id/exercises", async (req, res) => {
             description: description,
             duration: Number(duration),
             date: date
-                ? new Date(date).toDateString()
-                : new Date().toDateString(),
+                ? new Date(date)
+                : new Date(),
         });
         await exercise.save();
         return res.json({
@@ -97,7 +97,7 @@ app.get("/api/users/:_id/logs2", async (req, res) => {
          return{
           description: exercise_.description,
           duration: exercise_.duration,
-          date: new Date(exercise_.date).toDateString(),
+          date: exercise_.date.toDateString(),
          }
         
       })
