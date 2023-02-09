@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 require("dotenv").config();
 
 app.use(cors());
@@ -104,6 +106,19 @@ app.get("/api/users/:_id/logs", async (req, res) => {
         });
     }
 });
+
+app.post("/api/fileanalyse", upload.single("upfile"), async (req, res) => {
+    const { originalname, mimetype, size } = req.file;
+    res.json({
+        name: originalname,
+        type: mimetype,
+        size: size,
+    });
+
+  
+});
+
+
 
 const listener = app.listen(process.env.PORT || 3000, async () => {
     mongoose.set("strictQuery", false);
