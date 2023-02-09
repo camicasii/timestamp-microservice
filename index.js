@@ -65,8 +65,7 @@ app.get("/api/users/:_id/logs", async (req, res) => {
     const exercises = await Exercise.find({ username: user.username });
     if (!user) {
         res.json({ error: "User not found" });
-    } else {
-        console.log(exercises);
+    } else {        
         let result = exercises;
         if (from) {
             result = result.filter(
@@ -81,7 +80,14 @@ app.get("/api/users/:_id/logs", async (req, res) => {
         if (limit) {
             result = result.slice(0, limit);
         }
-        result=result.map((user_) => {user_.date = new Date(user_.date).toDateString()});
+        result=result.map((user_) => {
+          if(user_!=undefined)  
+          return {
+                description: String(user_.description),
+                duration: Number(user_.duration),
+                date: user_.date,
+            };
+        });
 
         res.json({
             username: user.username,
