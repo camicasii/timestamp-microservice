@@ -67,7 +67,7 @@ app.get("/api/users", async (req, res) => {
     res.json(users);
 });
 
-app.get("/api/users/:_id/logs", async (req, res) => {
+app.get("/api/users/:_id/logs2", async (req, res) => {
     const { _id } = req.params;
     const { from, to, limit } = req.query;
     const user = await User.findById(_id);
@@ -118,7 +118,7 @@ app.get("/api/users/:_id/logs", async (req, res) => {
 });
 
 
-app.get("/api/users/:_id/logs2", async (req, res) => {
+app.get("/api/users/:_id/logs", async (req, res) => {
   const { _id } = req.params;
   const { from, to, limit } = req.query;
   const user = await User.findById(_id);
@@ -144,7 +144,7 @@ app.get("/api/users/:_id/logs2", async (req, res) => {
         return {
           description: String(user_.description),
           duration: Number(user_.duration),
-          date:  new Date().toDateString()
+          date:  new Date(user_.date).toDateString(),
           };
       });
 
