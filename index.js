@@ -29,7 +29,7 @@ let Exercise = mongoose.model("Exercise", exerciseSchema);
 
 app.post('/api/users', async (req, res) => {
   const { username } = req.body;
-  const user =User.findOne({username:username});  
+  const user =await User.findOne({username:username});  
   if (user) {
     return res.json({ error: "Username already taken" });
   }
