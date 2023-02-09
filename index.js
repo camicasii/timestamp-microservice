@@ -157,6 +157,45 @@ app.get("/api/users/:_id/logs", async (req, res) => {
   }
 });
 
+app.post("/api/users/:_id/logs", async (req, res) => {
+  const { _id } = req.params;
+  const { from, to, limit } = req.query;
+  const user = await User.findById(_id);
+  const exercises = await Exercise.find({ username: user.username });
+  if (!user) {
+      res.json({ error: "User not found" });
+  } else {        
+      let result = exercises;
+      if (from) {
+          result = result.filter(
+              (user_) => new Date(user_.date) > new Date(from)
+          );
+      }
+      if (to) {
+          result = result.filter(
+              (user_) => new Date(user_.date) < new Date(to)
+          );
+      }
+      if (limit) {
+          result = result.slice(0, limit);
+      }
+      result=result.map((user_) => {          
+        return {
+          description: String(user_.description),
+          duration: Number(user_.duration),
+          date:  user_.date.toDateString()
+          };
+      });
+
+      res.json({
+          username: user.username,            
+          count: exercises.length,
+          _id: user._id,
+          log: result,
+      });
+  }
+});
+
 app.post("/api/fileanalyse", upload.single("upfile"), async (req, res) => {
     const { originalname, mimetype, size } = req.file;
     res.json({
