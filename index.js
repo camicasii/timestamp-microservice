@@ -22,7 +22,7 @@ let exerciseSchema = new mongoose.Schema({
     username: String,
     description: String,
     duration: Number,
-    date: String,
+    date:{ Date, default: Date.now }
 });
 let Exercise = mongoose.model("Exercise", exerciseSchema);
 
@@ -75,28 +75,38 @@ app.get("/api/users/:_id/logs", async (req, res) => {
     if (!user) {
         res.json({ error: "User not found" });
     } else {        
-        let result = exercises;
+        // let result = exercises;
         if (from) {
-            result = result.filter(
-                (user_) => new Date(user_.date) > new Date(from)
-            );
+          from = new Date(from)
+        } else {
+          from = new Date(0)
         }
         if (to) {
-            result = result.filter(
-                (user_) => new Date(user_.date) < new Date(to)
-            );
+          to = new Date(to)
+        } else {
+          to = new Date() //make the date equal to now, so get query till current date
         }
-        if (limit) {
-            result = result.slice(0, limit);
+        if (limit === undefined) {
+          limit = 0
         }
-        result=result.map((user_) => {
-          if(user_!=undefined)  
-          return {
-            description: String(user_.description),
-            duration: Number(user_.duration),
-            date:  new Date().toDateString()
-            };
-        });
+
+        const result = await   Exercise.find({ username: user.username })
+      .where('date').gte(from).lte(to)
+      .limit(parseInt(limit))
+      result = result.map(exercise_=>{
+         return{
+          description: exercise_.description,
+          duration: exercise_.duration,
+          date: new Date(exercise_.date).toDateString(),
+         }
+        
+      })
+        //   return {
+        //     description: String(user_.description),
+        //     duration: Number(user_.duration),
+        //     date:  new Date().toDateString()
+        //     };
+        // });
 
         res.json({
             username: user.username,            
@@ -105,6 +115,46 @@ app.get("/api/users/:_id/logs", async (req, res) => {
             log: result,
         });
     }
+});
+
+
+app.get("/api/users/:_id/logs2", async (req, res) => {
+  const { _id } = req.params;
+  const { from, to, limit } = req.query;
+  const user = await User.findById(_id);
+  const exercises = await Exercise.find({ username: user.username });
+  if (!user) {
+      res.json({ error: "User not found" });
+  } else {        
+      let result = exercises;
+      if (from) {
+          result = result.filter(
+              (user_) => new Date(user_.date) > new Date(from)
+          );
+      }
+      if (to) {
+          result = result.filter(
+              (user_) => new Date(user_.date) < new Date(to)
+          );
+      }
+      if (limit) {
+          result = result.slice(0, limit);
+      }
+      result=result.map((user_) => {          
+        return {
+          description: String(user_.description),
+          duration: Number(user_.duration),
+          date:  new Date().toDateString()
+          };
+      });
+
+      res.json({
+          username: user.username,            
+          count: exercises.length,
+          _id: user._id,
+          log: result,
+      });
+  }
 });
 
 app.post("/api/fileanalyse", upload.single("upfile"), async (req, res) => {
