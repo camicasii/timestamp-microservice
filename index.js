@@ -113,8 +113,7 @@ app.get('/api/users/:_id/logs',async  (req, res) => {
       result = result.slice(0, limit);
     }
     res.json({ username: user.username, _id: user._id, count: exercises.length, log: result });
-  }
-  // res.json({ username: user.username, _id: user._id, count: exercises.length, log: exercises.filter(user => user._id == _id) });
+  }  
 })
 
 
