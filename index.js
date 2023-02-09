@@ -22,7 +22,7 @@ let exerciseSchema = new mongoose.Schema({
     username: String,
     description: String,
     duration: Number,
-    date:{ Date, default: Date.now }
+    date:{ Date, default: Date.now() }
 });
 let Exercise = mongoose.model("Exercise", exerciseSchema);
 
