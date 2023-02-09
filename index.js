@@ -140,11 +140,12 @@ app.get("/api/users/:_id/logs", async (req, res) => {
       if (limit) {
           result = result.slice(0, limit);
       }
+      const date = new Date();
       result=result.map((user_) => {          
         return {
           description: String(user_.description),
           duration: Number(user_.duration),
-          date:  user_.date.toDateString()
+          date: date.toDateString()
           };
       });
 
