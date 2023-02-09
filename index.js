@@ -37,10 +37,10 @@ app.post('/api/users', async (req, res) => {
   await newUser.save();
   res.json({ username: username, _id: newUser._id });
 });
-app.post('/api/users/:_id/exercises', (req, res) => {
+app.post('/api/users/:_id/exercises',async (req, res) => {
   const { _id } = req.params;
   const { description, duration, date } = req.body;
-  const user =User.findById(_id);
+  const user =await User.findById(_id);
   if (!user) {
     res.json({ error: "User not found" });
   }
@@ -51,7 +51,7 @@ app.post('/api/users/:_id/exercises', (req, res) => {
       duration: Number(duration),
       date: date ? new Date(date).toDateString() : new Date().toDateString()
     });
-    exercise.save();
+    await exercise.save();
     return res.json(exercise);
   }
       
