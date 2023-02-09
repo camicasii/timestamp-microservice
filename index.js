@@ -20,7 +20,7 @@ let exerciseSchema = new mongoose.Schema({
     username: String,
     description: String,
     duration: Number,
-    date: Date,
+    date: String,
 });
 let Exercise = mongoose.model("Exercise", exerciseSchema);
 
@@ -88,11 +88,11 @@ app.get("/api/users/:_id/logs", async (req, res) => {
             result = result.slice(0, limit);
         }
         result=result.map((user_) => {
-          if(user_!=undefined)  
+          // if(user_!=undefined)  
           return {
                 description: String(user_.description),
                 duration: Number(user_.duration),
-                date: (new Date(user_.date)).toDateString(),
+                date: new Date(user_.date).toDateString(),
             };
         });
 
