@@ -50,7 +50,14 @@ app.post("/api/users/:_id/exercises", async (req, res) => {
                 : new Date().toDateString(),
         });
         await exercise.save();
-        return res.json(exercise);
+        return res.json({
+            username: user.username,
+            description: exercise.description,
+            duration: exercise.duration,
+            _id: user._id,
+            date: new Date(exercise.date).toDateString()
+
+          });
     }
 });
 app.get("/api/users", async (req, res) => {
