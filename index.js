@@ -85,8 +85,8 @@ app.post('/api/users/:_id/exercises', (req, res) => {
     // res.json( Object.assign({username:users[_id].username}, exercise));
   // }
 });
-app.get('/api/users', (req, res) => {
-  const users =User.find();
+app.get('/api/users',async (req, res) => {
+  const users =await User.find();
   res.json(
 users
       );
